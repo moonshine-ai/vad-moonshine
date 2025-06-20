@@ -127,6 +127,7 @@ export class FrameProcessor implements FrameProcessorInterface {
   speaking: boolean = false
   audioBuffer: { frame: Float32Array; isSpeech: boolean }[]
   redemptionCounter = 0
+  rawAudioFramesReceivedCount = 0
   speechFrameCount = 0
   active = false
   speechRealStartFired = false
@@ -143,12 +144,17 @@ export class FrameProcessor implements FrameProcessorInterface {
   }
 
   reset = () => {
+    console.log("FrameProcessor.reset");
     this.speaking = false
     this.speechRealStartFired = false
     this.audioBuffer = []
     this.modelResetFunc()
     this.redemptionCounter = 0
     this.speechFrameCount = 0
+    // Deliberately not resetting rawAudioFramesReceivedCount, since it's used
+    // to ensure that the audio worklet is running correctly by clients. They
+    // can check to see if the frame count is increasing to ensure that the
+    // audio worklet is receiving any input audio.
   }
 
   pause = (handleEvent: (event: FrameProcessorEvent) => any) => {
@@ -188,6 +194,7 @@ export class FrameProcessor implements FrameProcessorInterface {
     frame: Float32Array,
     handleEvent: (event: FrameProcessorEvent) => any
   ) => {
+    this.rawAudioFramesReceivedCount++
     if (!this.active) {
       return
     }

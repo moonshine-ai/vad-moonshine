@@ -1,5 +1,7 @@
 # Voice Activity Detector for the Browser
 
+*Forked by pete@moonshine.ai to update ONNX version to match MoonshineJS, and add error handling for rare bug where no frames are received by the audio worklet.*
+
 Prompt your user for microphone permissions and run callbacks on segments of audio with user speech in a few lines of code.
 
 Quick start:

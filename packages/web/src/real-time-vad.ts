@@ -413,4 +413,8 @@ export class AudioNodeVAD {
       ...options,
     }
   }
+
+  getRawAudioFramesReceivedCount = () => {
+    return this.frameProcessor.rawAudioFramesReceivedCount
+  }
 }
