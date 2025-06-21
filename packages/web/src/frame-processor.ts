@@ -144,7 +144,6 @@ export class FrameProcessor implements FrameProcessorInterface {
   }
 
   reset = () => {
-    console.log("FrameProcessor.reset");
     this.speaking = false
     this.speechRealStartFired = false
     this.audioBuffer = []
